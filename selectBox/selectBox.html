@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>selectBox</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			font-size: 625%
+		}
+		#selectBox{
+			width: 2.98rem;
+			height: 0.98rem;
+			border: 0.01rem solid #8FBCBF;
+			position: absolute;
+			margin: 1rem 1rem;
+			font-size: 0.12rem
+		}
+		#selectBox li{
+			list-style: none
+		}
+		#selectBox a{
+			text-decoration: none
+		}
+		#selectBox a:link,#selectBox a:visited,#selectBox a:active{
+			color: #000000
+		}
+		#selectBox a:hover{
+			color: #FF4500;
+			font-size: 0.14rem
+		}
+		#selectBox .title{
+			width: 2.98rem;
+			height: 0.27rem;
+			background-color: #E6E6FA 
+		}
+		#selectBox .title ul{
+			position: absolute;
+			width: 3.01rem;
+			height: 0.27rem;
+			left: -0.01rem
+		}
+		#selectBox .title li{
+			float: left;
+			width: 0.58rem;
+			height: 0.26rem;
+			line-height: 0.27rem;
+			text-align: center;
+			padding: 0 0.01rem;
+			border-bottom: 0.01rem solid #8FBCBF
+		}
+		#selectBox .title .select{
+			background-color: #FFF;
+			padding: 0;
+			border-left: 0.01rem solid #8FBCBF;
+			border-right: 0.01rem solid #8FBCBF;
+			border-bottom: 0.01rem solid #FFF
+		}
+		#selectBox .content-box{
+			height: 0.71rem;
+			line-height: 0.71rem
+		}
+		#selectBox .content ul{
+			width: 2.68rem;
+			height: 0.50rem;
+			display: inline-block;
+			position: relative;
+			vertical-align: middle;
+			left: 0.15rem
+		}
+		#selectBox .content li{
+			width: 1.34rem;
+			height: 0.25rem;
+			line-height: 0.25rem;
+			float: left;
+			overflow: hidden
+			
+		}
+	</style>
+</head>
+<body>
+	<div id="selectBox">
+		<div class="title" id="title">
+			<ul>
+				<li class="select">
+					<a href="#">公告</a>
+				</li>
+				<li>
+					<a href="#">规则</a>
+				</li>
+				<li>
+					<a href="#">论坛</a>
+				</li>
+				<li>
+					<a href="#">安全</a>
+				</li>
+				<li>
+					<a href="#">公益</a>
+				</li>
+			</ul>
+		</div>
+		<div class="content-box">
+			<div class="content">
+				<ul>
+					<li>
+						<a href="#">内容一</a>
+					</li>
+					<li>
+						<a href="#">内容一</a>
+					</li>
+					<li>
+						<a href="#">内容一</a>
+					</li>
+					<li>
+						<a href="#">内容一</a>
+					</li>
+				</ul>
+			</div>
+			<div class="content" style="display: none">
+				<ul>
+					<li>
+						<a href="#">内容二</a>
+					</li>
+					<li>
+						<a href="#">内容二</a>
+					</li>
+					<li>
+						<a href="#">内容二</a>
+					</li>
+					<li>
+						<a href="#">内容二</a>
+					</li>
+				</ul>
+			</div>
+			<div class="content" style="display: none">
+				<ul>
+					<li>
+						<a href="#">内容三</a>
+					</li>
+					<li>
+						<a href="#">内容三</a>
+					</li>
+					<li>
+						<a href="#">内容三</a>
+					</li>
+					<li>
+						<a href="#">内容三</a>
+					</li>
+				</ul>
+			</div>
+			<div class="content" style="display: none">
+				<ul>
+					<li>
+						<a href="#">内容四</a>
+					</li>
+					<li>
+						<a href="#">内容四</a>
+					</li>
+					<li>
+						<a href="#">内容四</a>
+					</li>
+					<li>
+						<a href="#">内容四</a>
+					</li>
+				</ul>
+			</div>
+			<div class="content" style="display: none">
+				<ul>
+					<li>
+						<a href="#">内容五</a>
+					</li>
+					<li>
+						<a href="#">内容五</a>
+					</li>
+					<li>
+						<a href="#">内容五</a>
+					</li>
+					<li>
+						<a href="#">内容五</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		;(function() {
+			/* 获取id */
+			function $(id) {
+				return typeof id == 'string'?document.getElementById(id) : id;
+			}
+
+			window.onload = function() {
+				var aTitleLi = $('title').getElementsByTagName('li'),
+					aContentDiv = document.getElementsByClassName('content');
+
+				if(aTitleLi.length != aContentDiv.length) return;
+
+				for(var i = aTitleLi.length - 1; i >= 0; i--) {
+					aTitleLi[i].index = i;
+
+					aTitleLi[i].onmouseover = function() {
+						for (var i = aTitleLi.length - 1; i >= 0; i--) {
+							aTitleLi[i].className = '';
+							aContentDiv[i].style.display = 'none';
+						}
+						this.className = 'select';
+						aContentDiv[this.index].style.display = 'block';
+					};
+				}
+			};
+		})();
+	</script>
+</body>
+</html>
