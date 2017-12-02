@@ -51,14 +51,37 @@
 			list-style: none;
 			padding: 1.75rem 0
 		}
+		.form .account{
+			background: url(../img/img_login.png) no-repeat left 1.4rem;
+			background-size: 1.7rem 2rem
+		}
+		.form .password{
+			border-top: 0.1rem solid black;
+			border-bottom: 0.1rem solid black;
+			background: url(../img/img_login_lock.png) no-repeat left 1.4rem;
+			background-size: 1.7rem 2rem
+		}
 		.form .input{
 			position: relative;
 			width: 25rem;
-			left: 3.5rem
+			left: 2rem
 		}
 		.form .see{
+			display: inline-block;
+			position: absolute;
+			right: 2.4rem;
+			width: 3rem;
+			height: 1.8rem;
+			background: url(../img/collection.png) no-repeat left -2.48rem;
+			background-size: 2.8rem
 		}
 		.form .check{
+			display: inline-block;
+			position: relative;
+			width: 2.2rem;
+			height: 2.2rem;
+			background: url(../img/img_login_0.png) no-repeat -3px -98px;
+			background-size: 2.2rem
 		}
 		.form .check-txt,.form .forget{
 			display: inline-block
@@ -112,15 +135,15 @@
 	<div class="form">
 		<form action="#" method="post">
 			<ul>
-				<li>
+				<li class="account">
 					<input class="input" type="text" placeholder="手机号/邮箱" />
 				</li>
-				<li style="border-top: 0.1rem solid black;border-bottom: 0.1rem solid black">
-					<input class="input" type="password" placeholder="密码" />
-					<span class="see"></span>
+				<li class="password">
+					<input id="pwd" class="input" type="password" placeholder="密码" />
+					<span id="see" class="see"></span>
 				</li>
 				<li>
-					<span class="check"></span>
+					<span id="check" class="check"></span>
 					<span class="check-txt">下次自动登录</span>
 					<a class="forget" href="#">忘记密码?</a>
 				</li>
@@ -138,5 +161,40 @@
 		<a href="#">企业用户登录</a>
 	</footer>
 	<!-- https://m.zhaopin.com/account/login -->
+
+	<script type="text/javascript">
+		;(function() {
+			function $(id) {
+				return typeof id == 'string'?document.getElementById(id) : id;
+			}
+			window.onload = function() {
+				var oPwd = $('pwd'),
+					oSee = $('see'),
+					oCheck = $('check'),
+					boolSee = boolCheck = true;
+
+				oSee.onclick = function() {
+					if(boolSee) {
+						oSee.style.backgroundPosition = 'left -11.1rem';
+						oPwd.type = 'text';
+						boolSee = false;
+					}else{
+						oSee.style.backgroundPosition = 'left -2.48rem';
+						oPwd.type = 'password';
+						boolSee = true;
+					}
+				};
+
+				oCheck.onclick = function() {
+					if(boolCheck) {
+						oCheck.style.backgroundPosition = '-3px -56px';
+					}else{
+						oCheck.style.backgroundPosition = '-3px -98px';
+					}
+					boolCheck = !boolCheck;
+				};
+			};
+		})();
+	</script>
 </body>
 </html>
