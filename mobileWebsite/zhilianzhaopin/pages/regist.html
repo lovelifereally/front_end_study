@@ -3,6 +3,10 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<!-- 去掉winphone系统a、input标签被点击时产生的半透明灰色背景 -->
+	<meta name="msapplication-tap-highlight" content="no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta content="telephone=no,email=no" name="format-detection" />
 	<title>智联招聘移动端注册</title>
 	<style type="text/css">
 		*{
@@ -10,11 +14,28 @@
 			padding: 0
 		}
 		html,body{
+			/*禁止文本缩放*/
+			-webkit-text-size-adjust: 100%;
 			width: 100%;
 			font-size: 62.5%;
 			font-family: "微软雅黑"
 		}
+		a {
+			/*去掉点击时的阴影*/
+			-webkit-tap-highlight-color: transparent;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			-webkit-tap-highlight-color: rgba(0,0,0,0)
+		}
+		img{
+			border-style: none;
+			/* 相比设为0可避免渲染占用内存值 */
+			border: none;
+			box-shadow:none
+		}
 		input{
+			/*清除输入框内阴影*/
+			-webkit-appearance: none;
 			outline: none;
 			border: 0;
 			border-radius: 0
@@ -79,6 +100,8 @@
 			background-size: 2.8rem
 		}
 		.idc-img{
+			/*去除其子元素img默认的间隙*/
+			font-size: 0;
 			position: absolute;
 			right: 0;
 			margin-top: -0.875rem
@@ -86,12 +109,13 @@
 		.idc-img,.idc-img img,#reflash{
 			display: inline-block
 		}
-		.idc-img img,#reflash{
-			border: 1px solid black
+		#reflash{
+			border: 1px solid #E6E6E6
 		}
 		.idc-img img{
 			width: 8.7rem;
 			height: 3rem;
+			margin-right: 0.2rem;
 			background: url(../img/getvalidcode.png) no-repeat left top;
 			background-size: 8.7rem 3rem
 		}
@@ -146,7 +170,7 @@
 				<li class="cellphone">
 					<input class="input" type="text" placeholder="手机号" />
 				</li>
-				<li class="pwd" style="border-top: 0.1rem solid black;border-bottom: 0.1rem solid black">
+				<li class="pwd" style="border-top: 0.1rem solid #E6E6E6;border-bottom: 0.1rem solid #E6E6E6">
 					<input id="pwd" class="input" type="password" placeholder="密码(6-20位字母数字组合)" />
 					<span id="see" class="see"></span>
 				</li>
@@ -157,7 +181,7 @@
 						<div id="reflash"></div>
 					</div>
 				</li>
-				<li class="sms" style="border-top: 0.1rem solid black;border-bottom: 0.1rem solid black">
+				<li class="sms" style="border-top: 0.1rem solid #E6E6E6;border-bottom: 0.1rem solid #E6E6E6">
 					<input id="sms" class="input" type="text" placeholder="短信确认码" />
 					<span id="take_sms">获取确认码</span>
 				</li>
