@@ -50,13 +50,38 @@
 		}
 		.form .input{
 			position: relative;
-			width: 25rem;
-			left: 3.5rem
+			width: 70%;
+			left: 2.2rem
+		}
+		.form .cellphone{
+			background: url(../img/cellphone.png) no-repeat left 1.7rem;
+			background-size: 1.2rem 1.5rem
+		}
+		.form .pwd{
+			background: url(../img/lock.png) no-repeat left 1.7rem;
+			background-size: 1.4rem 1.5rem
+		}
+		.form .idc{
+			background: url(../img/idc.png) no-repeat left 1.7rem;
+			background-size: 1.6rem 1.5rem
+		}
+		.form .sms{
+			background: url(../img/sms.png) no-repeat left 1.7rem;
+			background-size: 1.6rem 1.5rem
 		}
 		.form .see{
+			display: inline-block;
+			position: absolute;
+			right: 0;
+			width: 3rem;
+			height: 1.8rem;
+			background: url(../img/collection.png) no-repeat left -11.1rem;
+			background-size: 2.8rem
 		}
 		.idc-img{
-			position: absolute
+			position: absolute;
+			right: 0;
+			margin-top: -0.875rem
 		}
 		.idc-img,.idc-img img,#reflash{
 			display: inline-block
@@ -65,12 +90,21 @@
 			border: 1px solid black
 		}
 		.idc-img img{
-			width: 6.4rem;
-			height: 3.2rem
+			width: 8.7rem;
+			height: 3rem;
+			background: url(../img/getvalidcode.png) no-repeat left top;
+			background-size: 8.7rem 3rem
 		}
 		#reflash{
-			width: 1rem;
-			height: 1rem
+			width: 3rem;
+			height: 3rem;
+			background: url(../img/registGetVCode.png) no-repeat left top;
+			background-size: 3rem 3rem
+		}
+		#take_sms{
+			position: absolute;
+			right: 0;
+			color: blue
 		}
 		.form .register{
 			display: block;
@@ -109,22 +143,22 @@
 	<div class="form">
 		<form action="#" method="post">
 			<ul>
-				<li>
+				<li class="cellphone">
 					<input class="input" type="text" placeholder="手机号" />
 				</li>
-				<li style="border-top: 0.1rem solid black;border-bottom: 0.1rem solid black">
-					<input class="input" type="password" placeholder="密码(6-20位字母数字组合)" />
-					<span class="see"></span>
+				<li class="pwd" style="border-top: 0.1rem solid black;border-bottom: 0.1rem solid black">
+					<input id="pwd" class="input" type="password" placeholder="密码(6-20位字母数字组合)" />
+					<span id="see" class="see"></span>
 				</li>
-				<li>
+				<li class="idc">
 					<input class="input" type="text" placeholder="验证码" />
 					<div class="idc-img">
-						<img src="" />
+						<img id="idc_img" src="" />
 						<div id="reflash"></div>
 					</div>
 				</li>
-				<li style="border-top: 0.1rem solid black;border-bottom: 0.1rem solid black">
-					<input class="input" type="text" placeholder="短信确认码" />
+				<li class="sms" style="border-top: 0.1rem solid black;border-bottom: 0.1rem solid black">
+					<input id="sms" class="input" type="text" placeholder="短信确认码" />
 					<span id="take_sms">获取确认码</span>
 				</li>
 				<li style="padding: 3rem 0">
@@ -142,5 +176,29 @@
 		<a href="#">&laquo;隐私条款&raquo;</a>
 	</footer>
 	<!-- https://m.zhaopin.com/account/regist -->
+
+	<script type="text/javascript">
+		;(function() {
+			function $(id) {
+				return typeof id == 'string'?document.getElementById(id) : id;
+			}
+			window.onload = function() {
+				var oPwd = $('pwd'),
+					oSee = $('see'),
+					boolSee = true;
+
+				oSee.onclick = function() {
+					if(boolSee) {
+						oSee.style.backgroundPosition = 'left -2.48rem';
+						oPwd.type = 'text';
+					}else{
+						oSee.style.backgroundPosition = 'left -11.1rem';
+						oPwd.type = 'password';
+					}
+					boolSee = !boolSee;
+				};
+			};
+		})();
+	</script>
 </body>
 </html>
