@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>fan-shapedNavBtn</title>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0
+		}
+		html,body{
+			-webkit-text-size-adjust: 100%;
+			font-family: "微软雅黑";
+			width: 100%;
+			height: 100%;
+			display: block;
+			font-size: 625%;
+			background-color: #E6E6E6
+		}
+		img{
+			border: none;
+			border-style: none
+		}
+		#menu,.memu_list{
+			/*消除img间隙*/
+			font-size: 0
+		}
+		#menu{
+			width: 0.5rem;
+			height: 0.5rem;
+			position: fixed;
+			right: 2rem;
+			bottom: 2rem
+		}
+		.menu_list{
+			width: 0.42rem;
+			height: 0.42rem;
+			position: relative;
+			margin: 0.04rem
+		}
+		.menu_list img{
+			width: 0.4rem;
+			height: 0.4rem
+		}
+		#home{
+			width: 0.5rem;
+			height: 0.5rem;
+			background: url(img/add.png) no-repeat;
+			background-color: #FFF;
+			background-size: 0.5rem 0.5rem
+		}
+		.menu_list img,#home{
+			border-radius: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			cursor: pointer;
+			-webkit-transition: 0.5s all ease-in;
+			-moz-transition: 0.5s all ease-in;
+			-o-transition: 0.5s all ease-in;
+			-ms-transition: 0.5s all ease-in
+		}	
+	</style>
+</head>
+<body>
+	<div id="menu">
+		<div class="menu_list">
+			<img src="img/share.png" alt="" />
+			<img src="img/love.png" alt="" />
+			<img src="img/menu.png" alt="" />
+		</div>
+		<div id="home"></div>
+	</div>
+
+	<script type="text/javascript">
+		;(function() {
+			var oHome = document.getElementById('home'),
+				aImg = document.getElementsByClassName('menu_list')[0].getElementsByTagName('img'),
+				bOff = true,
+				iR = -100;//半径
+
+			function setTransition(obj, strValue) {
+				obj.style.transition = obj.style.WebkitTransition = obj.style.mozTransition = obj.style.oTransition = strValue;
+			}
+			function setTransform(obj, strValue) {
+				obj.style.transform = obj.style.WebkitTransform = obj.style.mozTransform = obj.style.oTransform = strValue;
+			}
+			function addEnd(obj, fn) {
+				obj.addEventListener('webkitTransitionEnd', fn, false);
+				obj.addEventListener('mozTransitionEnd', fn, false);
+				obj.addEventListener('oTransitionEnd', fn, false);
+				obj.addEventListener('transitionEnd', fn, false);
+			}
+			function removeEnd(obj, fn) {
+				obj.removeEventListener('webkitTransitionEnd', fn, false);
+				obj.removeEventListener('mozTransitionEnd', fn, false);
+				obj.removeEventListener('oTransitionEnd', fn, false);
+				obj.removeEventListener('transitionEnd', fn, false);
+			}
+			function end() {
+				setTransition(this, '0.1s');
+				setTransform(this, 'scale(1) rotate(-720deg)');
+				this.style.opacity = 1;
+				removeEnd(this, end);
+			}
+			/* 已知直角三角形的斜边长度和夹角 求对边和邻边长度 */
+			function toLT(iR, iDeg) {
+				var iLeft = Math.round(Math.sin(iDeg/180*Math.PI)*iR);//对边长度
+				var iTop = Math.round(Math.cos(iDeg/180*Math.PI)*iR);//邻边长度
+
+				return {l: iLeft, t: iTop};
+			}
+			
+			window.onload = function() {
+				for(var i = 0; i < aImg.length; i++) {
+					aImg[i].onclick = function() {
+						setTransition(this, '0.3s');
+						setTransform(this, 'scale(2) rotate(-720deg)');
+						this.style.opacity = 0.1;
+						addEnd(this,end);
+					};
+				}
+				oHome.onclick = function() {
+					if(bOff){
+						setTransform(this, 'rotate(-360deg)');
+						for(var i = 0; i < aImg.length; i++) {
+							var oLt = toLT(iR, 90/2*i);
+							setTransition(aImg[i], '1s ' + i*200 + 'ms');//每个延时过渡的时间都是依次递增,一定要注意过渡时间和延迟时间之间的空格
+							aImg[i].style.left = oLt.l/100 + 'rem';console.log('此时'+i+'号图标'+'x='+oLt.l+',y='+oLt.t);
+							aImg[i].style.top = oLt.t/100 + 'rem';
+							setTransform(aImg[i], 'scale(1) rotate(-720deg)');
+						}
+					}else{
+						setTransform(this, 'rotate(0deg)');
+						for(var i = 0; i < aImg.length; i++) {
+							setTransition(aImg[i], '1s ' + (aImg.length-i-1)*200 + 'ms');//每个延时过渡的时间都是依次递增,一定要注意过渡时间和延迟时间之间的空格
+							aImg[i].style.left = 0 + 'rem';console.log('此时'+i+'号图标'+'x=0'+',y=0');
+							aImg[i].style.top = 0 + 'rem';
+							setTransform(aImg[i], 'scale(1) rotate(0deg)');
+						}
+					}
+					bOff = !bOff;
+				};
+			};
+		})();
+	</script>
+</body>
+</html>
