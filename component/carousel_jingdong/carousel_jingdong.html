@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+	<title>京东轮播图</title>
+	<script src="js/jquery-1.11.3.js"></script>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			display: block;
+			font-size: 625%
+		}
+		ul{
+			list-style: none
+		}
+		.out{
+			width: 7.9rem;
+			height: 3.4rem;
+			border: 0.05rem solid #000;
+			margin: 0.5rem auto;
+			position: relative
+		}
+		.out .img li{
+			position: absolute;
+			top: 0;
+			left: 0;
+			font-size: 0;
+			display: none
+		}
+		.out .num{
+			position: absolute;
+			bottom: 0.2rem;
+			left: 0;
+			font-size: 0;
+			width: 100%;
+			text-align: center
+		}
+		.out .num li{
+			width: 0.2rem;
+			height: 0.2rem;
+			background: #666;
+			color: #FFF;
+			text-align: center;
+			line-height: 0.2rem;
+			border-radius: 100%;
+			display: inline-block;
+			font-size: 0.16rem;
+			margin: 0 0.03rem;
+			cursor: pointer
+		}
+		.out .num .active{
+			background-color: #A00
+		}
+		.out .btn{
+			position: absolute;
+			top: 50%;
+			width: 0.3rem;
+			height: 0.6rem;
+			background: rgba(0,0,0,0.5);
+			color: #FFF;
+			text-align: center;
+			line-height: 0.6rem;
+			font-size: 0.3rem;
+			margin-top: -0.3rem;
+			display: none;
+			cursor: pointer
+		}
+		.out .left{
+			left: 0
+		}
+		.out .right{
+			right: 0
+		}
+		.out:hover .btn{
+			display: block
+		}	
+	</style>
+</head>
+<body>
+	<div class="out">
+		<ul class="img">
+			<li>
+				<a href="#"><img src="img/1.jpg" alt="" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="img/2.jpg" alt="" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="img/3.jpg" alt="" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="img/4.jpg" alt="" /></a>
+			</li>
+			<li>
+				<a href="#"><img src="img/5.jpg" alt="" /></a>
+			</li>
+		</ul>
+		<ul class="num"></ul>
+		<div class="left btn"><</div>
+		<div class="right btn">></div>
+	</div>
+
+	<script type="text/javascript">
+		$(function() {
+			var i = 0,
+				size = $('.img li').size();
+			/* 动态增加li,初始化 */
+			for(var i1 = 1; i1 <= size; i1++) {
+				var li = '<li>' +　i1 + '</li>';
+				$('.num').append(li);
+			}
+			$('.img li').eq(0).show();
+			$('.num li').eq(0).addClass('active');
+			/* 控制轮播图运动 */
+			function animation() {
+				$('.num li').eq(i).addClass('active').siblings().removeClass('active');
+				$('.img li').eq(i).fadeIn(300).siblings().fadeOut(300);
+			}
+			function moveL() {
+				i--;
+				if(i == -1) {
+					i = size - 1;
+				}
+				animation();
+			}
+			function moveR() {
+				i++;
+				if(i == size) {
+					i = 0;
+				}
+				animation();
+			}
+			/* 自动控制轮播图 */
+			var timer = setInterval(moveR, 1000);
+			$('.out').hover(function() {
+				clearInterval(timer);
+			},function() {
+				timer = setInterval(moveR, 1000);
+			});
+			/* 手动控制轮播图 */
+			$('.num li').mouseover(function() {
+				i = $(this).index();
+				$(this).addClass('active').siblings().removeClass('active');
+				$('.img li').eq(i).stop().fadeIn(300).siblings().stop().fadeOut(300);//stop()停止所有在指定元素上正在运行的动画。
+			});
+			$('.out .left').click(function() {
+                moveL();
+            });
+            $('.out .right').click(function() {
+                moveR();
+            });
+		});
+	</script>
+</body>
+</html>
